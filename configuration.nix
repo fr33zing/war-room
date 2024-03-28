@@ -14,7 +14,7 @@
     extraGroups = [ "wheel" ];
   };
 
-  environment.systemPackages = with pkgs; [ vim ];
+  environment.systemPackages = with pkgs; [ vim git ];
 
   system.stateVersion = "23.11";
 }
