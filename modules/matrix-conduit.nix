@@ -3,7 +3,7 @@
     enable = true;
     settings.global = {
       server_name = domain;
-      allow_federation = false;
+      allow_federation = true;
       allow_registration = true;
     };
   };
