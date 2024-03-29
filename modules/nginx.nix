@@ -42,28 +42,24 @@ in {
         forceSSL = true;
         enableACME = true;
 
-        listen = [
-          {
-            addr = "0.0.0.0";
-            port = 443;
-            ssl = true;
-          }
-          {
-            addr = "[::]";
-            port = 443;
-            ssl = true;
-          }
-          {
-            addr = "0.0.0.0";
-            port = 8448;
-            ssl = true;
-          }
-          {
-            addr = "[::]";
-            port = 8448;
-            ssl = true;
-          }
-        ];
+        listen = lib.flatten (map (it:
+          map (addr: {
+            inherit (it) port ssl;
+            inherit addr;
+          }) [ "0.0.0.0" "[::]" ]) [
+            {
+              port = 80;
+              ssl = false;
+            }
+            {
+              port = 443;
+              ssl = true;
+            }
+            {
+              port = 8448;
+              ssl = true;
+            }
+          ]);
 
         locations."/_matrix/" = {
           proxyPass = "http://backend_conduit$request_uri";
