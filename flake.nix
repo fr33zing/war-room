@@ -6,6 +6,7 @@
       in { inherit (settings) domain email; };
       modules = [
         ./configuration.nix
+        ./modules/shell.nix
         ./modules/matrix-conduit.nix
         ./modules/nginx.nix
       ];
