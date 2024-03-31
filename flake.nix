@@ -14,7 +14,7 @@
           { nixpkgs.overlays = [ myLib.overlay ]; }
           ./configuration.nix
           ./modules/shell.nix
-          ./modules/matrix-conduit.nix
+          ./modules/conduit.nix
           ./modules/nginx.nix
           ./modules/website.nix
         ];
