@@ -5,7 +5,7 @@
       server_name = domain;
       database_backend = "rocksdb";
       allow_federation = true;
-      allow_registration = true;
+      allow_registration = false;
     };
   };
 }
