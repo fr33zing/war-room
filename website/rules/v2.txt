@@ -1,0 +1,22 @@
+war-room.chat rules - version 2
+
+1. Be respectful, especially to members of other homeservers.
+   Each of us represents our homeserver to the larger Matrix community.
+
+2. Maintain the privacy of all members of the homeserver.
+   Do not reveal any personal information of yourself or any other
+   member to anyone outside the homeserver.
+
+3. Maintain the secrecy of all communications in the homeserver.
+   Do not share any content or messages exchanged in group chats with
+   anyone outside the homeserver. Do not share any content or messages
+   exchanged in private/direct messages with any other party.
+
+4. Inactive accounts will be manually deactivated after 30 days
+   without interaction online or in real life. Reactivation is
+   available with proof of identity.
+
+5. No new members will be added without a group vote lasting at least
+   72 hours. At least 75% of active homeserver members must be in
+   favor for the vote to pass. Any member can veto while the vote is
+   ongoing.
