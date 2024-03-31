@@ -16,6 +16,7 @@
           ./modules/shell.nix
           ./modules/matrix-conduit.nix
           ./modules/nginx.nix
+          ./modules/website.nix
         ];
       };
 

@@ -34,7 +34,8 @@ in {
     recommendedProxySettings = true;
 
     upstreams = {
-      "backend_conduit" = {
+      "website" = { servers = { "[::1]:8787" = { }; }; };
+      "conduit" = {
         servers = { "[::1]:${toString conduitSettings.port}" = { }; };
       };
     };
@@ -59,8 +60,10 @@ in {
           }
         ];
 
+        locations."/" = { proxyPass = "http://website$request_uri"; };
+
         locations."/_matrix/" = {
-          proxyPass = "http://backend_conduit$request_uri";
+          proxyPass = "http://conduit$request_uri";
           proxyWebsockets = true;
           extraConfig = ''
             proxy_set_header Host $host;
