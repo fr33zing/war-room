@@ -1,0 +1,60 @@
+* {
+    cursor: default;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    font-size: 20px;
+    font-family: sans-serif;
+    color: #DDD;
+    background: #222;
+   
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, div {
+    user-select: none;
+}
+
+section {
+    margin: 2rem 0;
+}
+
+h1, div {
+    text-align: center;
+    font-style: italic;
+    padding: 0.4em 1.5rem;
+}
+
+h1 {
+    color: #222;
+    background: #DDD;
+}
+
+h2 {
+    font-size: 0.75em;
+    font-weight: normal;
+    margin: 0 0 0.2em 0;
+}
+
+a {
+    cursor: pointer;
+    color: #DDD;
+}
+
+div {
+    border: 1px solid #DDD;
+}
+
+.selectable {
+    cursor: text;
+    user-select: text;
+}

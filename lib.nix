@@ -33,5 +33,12 @@ rec {
             inherit addr;
           }) [ "0.0.0.0" "[::]" ]) portSsls);
 
+      toCSS = scssFile:
+        builtins.readFile (nixpkgs.runCommand "convert-scss" {
+          buildInputs = [ nixpkgs.dart-sass ];
+        } ''
+          ${lib.getExe nixpkgs.dart-sass} --style=compressed ${scssFile} $out
+        '');
+
     };
 }
