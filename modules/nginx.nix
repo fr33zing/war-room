@@ -1,5 +1,7 @@
-{ config, pkgs, lib, domain, email, ... }:
+{ config, pkgs, domain, email, ... }:
 let
+  inherit (pkgs) lib;
+
   matrixHostname = domain;
 
   conduitSettings = config.services.matrix-conduit.settings.global;
@@ -42,24 +44,20 @@ in {
         forceSSL = true;
         enableACME = true;
 
-        listen = lib.flatten (map (it:
-          map (addr: {
-            inherit (it) port ssl;
-            inherit addr;
-          }) [ "0.0.0.0" "[::]" ]) [
-            {
-              port = 80;
-              ssl = false;
-            }
-            {
-              port = 443;
-              ssl = true;
-            }
-            {
-              port = 8448;
-              ssl = true;
-            }
-          ]);
+        listen = lib.my.listenOn [
+          {
+            port = 80;
+            ssl = false;
+          }
+          {
+            port = 443;
+            ssl = true;
+          }
+          {
+            port = 8448;
+            ssl = true;
+          }
+        ];
 
         locations."/_matrix/" = {
           proxyPass = "http://backend_conduit$request_uri";

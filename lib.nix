@@ -26,5 +26,12 @@ rec {
             ${command} --describe
           '') tools);
 
+      listenOn = portSsls:
+        lib.flatten (map (it:
+          map (addr: {
+            inherit (it) port ssl;
+            inherit addr;
+          }) [ "0.0.0.0" "[::]" ]) portSsls);
+
     };
 }
