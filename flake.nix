@@ -1,5 +1,13 @@
 {
-  inputs = { nixpkgs.url = "github:NixOS/nixpkgs"; };
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs";
+
+    # Used for packaging bots written in Rust
+    crane = {
+      url = "github:ipetkov/crane";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   outputs = { self, nixpkgs, ... }@inputs:
     let
@@ -29,17 +37,28 @@
         pkgs = nixpkgs.legacyPackages.${system}.extend myLib.overlay;
         inherit (pkgs) lib;
         tools = lib.my.readDevTools ./tools;
-      in {
+        bots = lib.my.readBots ./bots { inherit inputs pkgs system; };
+      in rec {
 
-        devShells.${system}.default = pkgs.mkShell {
-          packages = with pkgs; [ python3 matrix-conduit ] ++ tools;
-          shellHook = ''
-            printf '\n%s\n' '[Commands]'
-            ${lib.my.shellHook.describeDevTools tools}
-            printf '\n%s\n\n' '[Matrix]'
-            ${lib.my.shellHook.startMatrixDevServer 6167}
-          '';
+        packages.${system}.bots = bots;
+        apps.${system}.bots = lib.my.packagesToApps bots;
+
+        devShells.${system} = {
+          default = pkgs.mkShell {
+            packages = with pkgs; [ python3 matrix-conduit ] ++ tools;
+            shellHook = let conduitPort = 6167;
+            in ''
+              export BOTS_DIR="${./bots}"
+              export CONDUIT_PORT="${toString conduitPort}"
+
+              printf '\n%s\n\n' '[Commands]'
+              ${lib.my.shellHook.describeDevTools tools}
+              printf '\n%s\n\n' '[Matrix]'
+              ${lib.my.shellHook.startMatrixDevServer conduitPort}
+            '';
+          };
+
+          rust = inputs.crane.lib.${system}.devShell { };
         };
-
       }));
 }
