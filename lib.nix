@@ -36,7 +36,7 @@ rec {
           export CONDUIT_CONFIG=${
             nixpkgs.writeText "conduit.toml" ''
               [global]
-              database_path = "~/.local/share/conduit-dev"
+              database_path = "tmp/conduit"
               server_name = "localhost"
               address = "0.0.0.0"
               port = ${toString port}
