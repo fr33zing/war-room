@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import sys, random
+import sys, random, subprocess, os
 
 COMMAND = "@conduit:war-room.chat: create-user"
 PASSWORD_PREFIX = "change-me-"
@@ -20,7 +20,7 @@ def read_secret():
 
 if len(sys.argv) < 2:
     log("Usage: create-user <username>...")
-    sys.exit()
+    sys.exit(1)
 
 if any(arg == "--describe" for arg in sys.argv):
     log("Generate Conduit admin command(s) to create user(s)")
@@ -30,6 +30,8 @@ secret = read_secret()
 log()
 
 for username in sys.argv[1:]:
-    random.seed(secret + username)
-    password = PASSWORD_PREFIX + str(random.randbytes(4).hex())
+    gen_passwd_output = subprocess.check_output(
+        ["gen-passwd", secret, username], text=True
+    ).rstrip()
+    password = PASSWORD_PREFIX + gen_passwd_output
     print(" ".join([COMMAND, username, password]))

@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+
+import sys, random, subprocess, os
+
+COMMAND = "@conduit:war-room.chat: create-user"
+
+
+def log(s=""):
+    print(s, file=sys.stderr)
+
+
+def read_secret():
+    out = sys.stdout
+    sys.stdout = sys.stderr
+    secret = input("Secret: ")
+    sys.stdout = out
+    return secret
+
+
+if len(sys.argv) < 2:
+    log("Usage: create-bot <botname>...")
+    sys.exit(1)
+
+if any(arg == "--describe" for arg in sys.argv):
+    log("Generate Conduit admin command(s) to create bot(s)")
+    sys.exit()
+
+secret = read_secret()
+log()
+
+for botname in sys.argv[1:]:
+    password = subprocess.check_output(
+        ["gen-passwd", secret, botname], text=True
+    ).rstrip()
+    print(" ".join([COMMAND, f"bot.{botname}", password]))
