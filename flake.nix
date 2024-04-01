@@ -28,15 +28,16 @@
       let
         pkgs = nixpkgs.legacyPackages.${system}.extend myLib.overlay;
         inherit (pkgs) lib;
-
         tools = lib.my.readDevTools ./tools;
       in {
 
-        devShell.${system} = pkgs.mkShell {
-          packages = with pkgs; [ python3 ] ++ tools;
+        devShells.${system}.default = pkgs.mkShell {
+          packages = with pkgs; [ python3 matrix-conduit ] ++ tools;
           shellHook = ''
             printf '\n%s\n' '[Commands]'
-            ${lib.my.describeDevTools tools}
+            ${lib.my.shellHook.describeDevTools tools}
+            printf '\n%s\n\n' '[Matrix]'
+            ${lib.my.shellHook.startMatrixDevServer 6167}
           '';
         };
 
