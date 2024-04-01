@@ -19,7 +19,7 @@ def read_secret():
 
 
 if len(sys.argv) < 2:
-    log("Provide at least one username.")
+    log("Usage: create-user <username>...")
     sys.exit()
 
 if any(arg == "--describe" for arg in sys.argv):
