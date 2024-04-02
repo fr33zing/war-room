@@ -7,14 +7,56 @@ def log(s=""):
     print(s, file=sys.stderr)
 
 
+def read_secret():
+    out = sys.stdout
+    sys.stdout = sys.stderr
+    secret = input("Secret: ")
+    sys.stdout = out
+    return secret
+
+
 if any(arg == "--describe" for arg in sys.argv):
     log("Run a bot connected to the development homeserver")
     sys.exit()
 
 if len(sys.argv) != 2:
     log("Usage: bot-run <bot>")
+    sys.exit(1)
+
+
+bot = sys.argv[1]
+flake = os.environ["FLAKE_DIR"]
+conduit_port = os.environ["CONDUIT_PORT"]
+
+if not flake:
+    log("Environment variable FLAKE_DIR is not defined")
+    sys.exit(2)
+if not conduit_port:
+    log("Environment variable CONDUIT_PORT is not defined")
+    sys.exit(3)
 
 bot_list_output = subprocess.check_output("bot-list")
 bots = json.loads(bot_list_output)
 
-# TODO
+if bot not in bots:
+    log(f'Could not find bot "{bot}".\nValid bots: {bots}')
+    sys.exit(4)
+
+secret = read_secret()
+log()
+
+bot_password = subprocess.check_output(["gen-passwd", secret, bot], text=True).rstrip()
+homeserver = f"http://localhost:{conduit_port}"
+
+
+log(f'Running bot "{bot}"...\n')
+command = [
+    "nix",
+    "run",
+    f"{flake}#bots.{bot}",
+    "--",
+    homeserver,
+    f"bot.{bot}",
+    bot_password,
+]
+subprocess.run(command, stderr=sys.stderr, stdout=sys.stdout)

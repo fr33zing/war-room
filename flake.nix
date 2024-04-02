@@ -48,6 +48,7 @@
             packages = with pkgs; [ python3 matrix-conduit ] ++ tools;
             shellHook = let conduitPort = 6167;
             in ''
+              export FLAKE_DIR="${./.}"
               export BOTS_DIR="${./bots}"
               export CONDUIT_PORT="${toString conduitPort}"
 
