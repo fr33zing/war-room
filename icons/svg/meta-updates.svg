@@ -8,7 +8,10 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)"
-   sodipodi:docname="general.svg"
+   sodipodi:docname="meta-updates.svg"
+   inkscape:export-filename="../png/meta-updates.png"
+   inkscape:export-xdpi="384"
+   inkscape:export-ydpi="384"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,9 +27,9 @@
      inkscape:deskcolor="#ababab"
      inkscape:document-units="mm"
      inkscape:zoom="46.201452"
-     inkscape:cx="6.9803001"
-     inkscape:cy="7.4889421"
-     inkscape:window-width="3416"
+     inkscape:cx="13.354559"
+     inkscape:cy="8.8200691"
+     inkscape:window-width="1702"
      inkscape:window-height="1344"
      inkscape:window-x="26"
      inkscape:window-y="23"
@@ -65,14 +68,14 @@
        ry="8" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro';fill:#a6e3a1;fill-opacity:1;stroke-width:1.00157;stroke-dasharray:none"
-       x="4"
-       y="16.226562"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro';fill:#a6e3a1;fill-opacity:1;stroke-width:1.00157;stroke-dasharray:none"
+       x="3.5312359"
+       y="11.34376"
        id="text4"><tspan
          sodipodi:role="line"
          id="tspan4"
-         x="4"
-         y="16.226562"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans'">*</tspan></text>
+         x="3.5312359"
+         y="11.34376"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#cba6f7;fill-opacity:1">+</tspan></text>
   </g>
 </svg>

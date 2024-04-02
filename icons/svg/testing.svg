@@ -8,7 +8,10 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)"
-   sodipodi:docname="meta-discussion.svg"
+   sodipodi:docname="testing.svg"
+   inkscape:export-filename="../png/testing.png"
+   inkscape:export-xdpi="384"
+   inkscape:export-ydpi="384"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,9 +27,9 @@
      inkscape:deskcolor="#ababab"
      inkscape:document-units="mm"
      inkscape:zoom="46.201452"
-     inkscape:cx="13.365381"
-     inkscape:cy="8.8308912"
-     inkscape:window-width="3416"
+     inkscape:cx="13.354559"
+     inkscape:cy="7.1101661"
+     inkscape:window-width="1702"
      inkscape:window-height="1344"
      inkscape:window-x="26"
      inkscape:window-y="23"
@@ -65,14 +68,14 @@
        ry="8" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro';fill:#a6e3a1;fill-opacity:1;stroke-width:1.00157;stroke-dasharray:none"
-       x="5.1588454"
-       y="11.958345"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro';fill:#cdd6f4;fill-opacity:1;stroke-width:1.00157;stroke-dasharray:none"
+       x="4.458322"
+       y="10.817718"
        id="text4"><tspan
          sodipodi:role="line"
          id="tspan4"
-         x="5.1588454"
-         y="11.958345"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#74c7ec;fill-opacity:1">?</tspan></text>
+         x="4.458322"
+         y="10.817718"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#cdd6f4;fill-opacity:1">:|</tspan></text>
   </g>
 </svg>

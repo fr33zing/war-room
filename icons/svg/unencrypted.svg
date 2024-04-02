@@ -8,7 +8,10 @@
    version="1.1"
    id="svg1"
    inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)"
-   sodipodi:docname="interesting.svg"
+   sodipodi:docname="unencrypted.svg"
+   inkscape:export-filename="../png/unencrypted.png"
+   inkscape:export-xdpi="384"
+   inkscape:export-ydpi="384"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,8 +28,8 @@
      inkscape:document-units="mm"
      inkscape:zoom="46.201452"
      inkscape:cx="13.354559"
-     inkscape:cy="5.3569745"
-     inkscape:window-width="3416"
+     inkscape:cy="7.1101661"
+     inkscape:window-width="1702"
      inkscape:window-height="1344"
      inkscape:window-x="26"
      inkscape:window-y="23"
@@ -65,14 +68,14 @@
        ry="8" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.33333px;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro';fill:#f38ba8;fill-opacity:1;stroke-width:1.00157;stroke-dasharray:none"
-       x="3.2809246"
-       y="10.547525"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#cdd6f4;fill-opacity:1;stroke-width:1.00157;stroke-dasharray:none"
+       x="3.7239447"
+       y="11.888033"
        id="text4"><tspan
          sodipodi:role="line"
          id="tspan4"
-         x="3.2809246"
-         y="10.547525"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.33333px;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#f38ba8;fill-opacity:1">:o</tspan></text>
+         x="3.7239447"
+         y="11.888033"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans';fill:#cdd6f4;fill-opacity:1">!!</tspan></text>
   </g>
 </svg>
