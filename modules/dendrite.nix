@@ -1,14 +1,21 @@
 { config, domain, ... }: {
   services.postgresql.enable = true;
 
+  users.groups.dendrite = { };
+  users.users.dendrite = {
+    isSystemUser = true;
+    name = "dendrite";
+    group = "dendrite";
+  };
+
   services.dendrite = {
     enable = true;
-    environmentFile = "/run/secrets/dendrite_env";
+    environmentFile = config.sops.secrets."dendrite_env".path;
 
     settings = {
       global = {
         server_name = domain;
-        private_key = "/run/secrets/matrix_key";
+        private_key = config.sops.secrets."matrix_key".path;
         database = {
           connection_string = "$CONNECTION_STRING";
           max_open_conns = 90;

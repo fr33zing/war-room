@@ -31,7 +31,7 @@
           ./modules/sops.nix
           ./modules/shell.nix
           ./modules/dendrite.nix
-          ./modules/conduit.nix
+          #./modules/conduit.nix
           ./modules/nginx.nix
           ./modules/website.nix
         ];
