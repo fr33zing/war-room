@@ -5,7 +5,7 @@ let
   matrixHostname = domain;
   matrixServerName = config.services.dendrite.settings.global.server_name;
   matrixPort = config.services.dendrite.httpPort;
-  firewallOpenPorts = [ 80 433 matrixPort ];
+  firewallOpenPorts = [ 80 443 8448 ];
 
   well_known_server = pkgs.writeText "well-known-matrix-server" ''
     {
@@ -54,7 +54,7 @@ in {
             ssl = true;
           }
           {
-            port = matrixPort;
+            port = 8448;
             ssl = true;
           }
         ];
