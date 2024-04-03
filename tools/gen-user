@@ -23,7 +23,7 @@ if len(sys.argv) < 2:
     sys.exit(1)
 
 if any(arg == "--describe" for arg in sys.argv):
-    log("Generate Conduit admin command(s) to create user(s)")
+    log("Generate Dendrite admin command(s) to create user(s)")
     sys.exit()
 
 secret = read_secret()
@@ -34,4 +34,18 @@ for username in sys.argv[1:]:
         ["gen-passwd", secret, username], text=True
     ).rstrip()
     password = PASSWORD_PREFIX + gen_passwd_output
-    print(" ".join([COMMAND, username, password]))
+    command = [
+        "nix",
+        "shell",
+        "nixpkgs#dendrite",
+        "-c",
+        "sudo",
+        "create-account",
+        "-config",
+        "/run/dendrite/dendrite.yaml",
+        "-username",
+        f'"{username}"',
+        "-password",
+        f'"{password}"',
+    ]
+    print(" ".join(command))
