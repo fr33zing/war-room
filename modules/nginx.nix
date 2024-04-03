@@ -36,7 +36,7 @@ in {
 
     upstreams = {
       "website" = { servers = { "[::1]:8787" = { }; }; };
-      "conduit" = { servers = { "[::1]:${matrixPort}" = { }; }; };
+      "matrix" = { servers = { "[::1]:${toString matrixPort}" = { }; }; };
     };
 
     virtualHosts = lib.recursiveUpdate {
@@ -62,7 +62,7 @@ in {
         locations."/" = { proxyPass = "http://website$request_uri"; };
 
         locations."/_matrix/" = {
-          proxyPass = "http://conduit$request_uri";
+          proxyPass = "http://matrix$request_uri";
           proxyWebsockets = true;
           extraConfig = ''
             proxy_set_header Host $host;
