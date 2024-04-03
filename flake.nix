@@ -1,6 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs.url = # TODO: Unpin in a week or two
+      "github:NixOS/nixpkgs/f2a5fa82b59bfba0f8a82604ee8c4261be1fe531";
 
     # Secrets manager
     sops-nix.url = "github:Mic92/sops-nix";
