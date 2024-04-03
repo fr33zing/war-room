@@ -69,6 +69,15 @@ in {
           '';
         };
 
+        locations."/_synapse/" = {
+          proxyPass = "http://matrix/_synapse$request_uri";
+          proxyWebsockets = true;
+          extraConfig = ''
+            proxy_set_header Host $host;
+            proxy_buffering off;
+          '';
+        };
+
         extraConfig = ''
           merge_slashes off;
         '';
