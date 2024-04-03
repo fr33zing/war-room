@@ -3,8 +3,9 @@ let
   inherit (pkgs) lib;
 
   matrixHostname = domain;
-
-  conduitSettings = config.services.matrix-conduit.settings.global;
+  matrixServerName = config.services.dendrite.settings.global.server_name;
+  matrixPort = config.services.dendrite.httpPort;
+  firewallOpenPorts = [ 80 433 matrixPort ];
 
   well_known_server = pkgs.writeText "well-known-matrix-server" ''
     {
@@ -19,8 +20,8 @@ let
     }
   '';
 in {
-  networking.firewall.allowedTCPPorts = [ 80 443 8448 ];
-  networking.firewall.allowedUDPPorts = [ 80 443 8448 ];
+  networking.firewall.allowedTCPPorts = firewallOpenPorts;
+  networking.firewall.allowedUDPPorts = firewallOpenPorts;
 
   security.acme = {
     acceptTerms = true;
@@ -35,9 +36,7 @@ in {
 
     upstreams = {
       "website" = { servers = { "[::1]:8787" = { }; }; };
-      "conduit" = {
-        servers = { "[::1]:${toString conduitSettings.port}" = { }; };
-      };
+      "conduit" = { servers = { "[::1]:${matrixPort}" = { }; }; };
     };
 
     virtualHosts = lib.recursiveUpdate {
@@ -55,7 +54,7 @@ in {
             ssl = true;
           }
           {
-            port = 8448;
+            port = matrixPort;
             ssl = true;
           }
         ];
@@ -76,7 +75,7 @@ in {
         '';
       };
     } {
-      "${conduitSettings.server_name}" = {
+      "${matrixServerName}" = {
         forceSSL = true;
         enableACME = true;
 
