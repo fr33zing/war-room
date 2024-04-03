@@ -2,6 +2,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
 
+    # Secrets manager
+    sops-nix.url = "github:Mic92/sops-nix";
+
     # Used for packaging bots written in Rust
     crane = {
       url = "github:ipetkov/crane";
@@ -19,8 +22,12 @@
         system = "x86_64-linux";
         specialArgs = { inherit (settings) domain email; };
         modules = [
+          inputs.sops-nix.nixosModules.sops
+
           { nixpkgs.overlays = [ myLib.overlay ]; }
+
           ./configuration.nix
+          ./modules/sops.nix
           ./modules/shell.nix
           ./modules/conduit.nix
           ./modules/nginx.nix
