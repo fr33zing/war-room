@@ -3,12 +3,12 @@
 
   services.dendrite = {
     enable = true;
-    environmentFile = config.sops.secrets."dendrite_env".path;
+    environmentFile = "/run/secrets/dendrite_env";
 
     settings = {
       global = {
         server_name = domain;
-        private_key = config.sops.secrets."matrix_key".path;
+        private_key = "/run/secrets/matrix_key";
         database = {
           connection_string = "$CONNECTION_STRING";
           max_open_conns = 90;
