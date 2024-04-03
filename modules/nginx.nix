@@ -32,7 +32,6 @@ in {
 
   services.nginx = {
     enable = true;
-    recommendedProxySettings = true;
 
     upstreams = {
       "website" = { servers = { "[::1]:8787" = { }; }; };
