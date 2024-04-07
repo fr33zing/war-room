@@ -3,11 +3,6 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/vda";
-  };
-
   users.users.user = {
     isNormalUser = true;
     initialPassword = "changeme";
