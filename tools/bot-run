@@ -26,14 +26,18 @@ if len(sys.argv) != 2:
 
 bot = sys.argv[1]
 flake = os.environ["FLAKE_DIR"]
+domain = os.environ["DOMAIN"]
 conduit_port = os.environ["CONDUIT_PORT"]
 
 if not flake:
     log("Environment variable FLAKE_DIR is not defined")
     sys.exit(2)
+if not domain:
+    log("Environment variable DOMAIN is not defined")
+    sys.exit(2)
 if not conduit_port:
     log("Environment variable CONDUIT_PORT is not defined")
-    sys.exit(3)
+    sys.exit(4)
 
 bot_list_output = subprocess.check_output("bot-list")
 bots = json.loads(bot_list_output)
@@ -43,20 +47,19 @@ if bot not in bots:
     sys.exit(4)
 
 secret = read_secret()
-log()
 
-bot_password = subprocess.check_output(["gen-passwd", secret, bot], text=True).rstrip()
+password = subprocess.check_output(
+    ["gen-passwd", secret, f"bot.{bot}"], text=True
+).rstrip()
 homeserver = f"http://localhost:{conduit_port}"
+command = ["nix", "run", f"{flake}#bots.{bot}"]
+data_dir = f"tmp/bot/{bot}"
 
+env = os.environ.copy()
+env["BOT_DATA_DIR"] = data_dir
+env["BOT_HOMESERVER"] = f"http://localhost:{conduit_port}"
+env["BOT_USERNAME"] = f"bot.{bot}"
+env["BOT_PASSWORD"] = password
 
-log(f'Running bot "{bot}"...\n')
-command = [
-    "nix",
-    "run",
-    f"{flake}#bots.{bot}",
-    "--",
-    homeserver,
-    f"bot.{bot}",
-    bot_password,
-]
-subprocess.run(command, stderr=sys.stderr, stdout=sys.stdout)
+log(f'\nRunning bot "{bot}"...\n')
+subprocess.run(command, stderr=sys.stderr, stdout=sys.stdout, env=env)

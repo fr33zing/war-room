@@ -63,6 +63,10 @@ rec {
       packagesToApps = packages:
         builtins.mapAttrs (_: botPkg: mkApp { drv = botPkg; }) packages;
 
+      packagesToDevShells = packages:
+        builtins.mapAttrs
+        (_: botPkg: (nixpkgs.mkShell { inputsFrom = [ botPkg ]; })) packages;
+
       readBots = dir: botArgs:
         lib.mergeAttrsList
         (map (bot: { ${bot} = import "${dir}/${bot}" botArgs; }) (dirsIn dir));

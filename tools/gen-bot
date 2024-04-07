@@ -29,7 +29,8 @@ secret = read_secret()
 log()
 
 for botname in sys.argv[1:]:
+    bot_username = f"bot.{botname}"
     password = subprocess.check_output(
-        ["gen-passwd", secret, botname], text=True
+        ["gen-passwd", secret, bot_username], text=True
     ).rstrip()
-    print(" ".join([COMMAND, f"bot.{botname}", password]))
+    print(" ".join([COMMAND, bot_username, password]))

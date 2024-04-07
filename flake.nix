@@ -51,7 +51,6 @@
 
         packages.${system}.bots = bots;
         apps.${system}.bots = lib.my.packagesToApps bots;
-
         devShells.${system} = {
           default = pkgs.mkShell {
             packages = with pkgs; [ python3 matrix-conduit ] ++ tools;
@@ -59,6 +58,7 @@
             in ''
               export FLAKE_DIR="${./.}"
               export BOTS_DIR="${./bots}"
+              export DOMAIN="http://${settings.domain}"
               export CONDUIT_PORT="${toString conduitPort}"
 
               printf '\n%s\n\n' '[Commands]'
@@ -68,6 +68,7 @@
             '';
           };
 
+          bots = lib.my.packagesToDevShells bots;
           rust = inputs.crane.lib.${system}.devShell { };
         };
       }));
