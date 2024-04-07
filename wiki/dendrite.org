@@ -1,0 +1,111 @@
+#+DOCUMENT_TITLE: Dendrite
+
+* Setup
+
+** Generate secrets
+
+These files should be generated somewhere safe.
+
+*** Postgres password
+
+#+BEGIN_SRC shell
+nix shell nixpkgs#openssl -c \
+    openssl rand -hex 32 > postgres_passwd
+#+END_SRC
+
+*** Dendrite registration shared secret
+
+#+BEGIN_SRC shell
+nix shell nixpkgs#openssl -c \
+    openssl rand -hex 32 > registration_shared_secret
+#+END_SRC
+
+*** Dendrite private key
+
+#+BEGIN_SRC shell
+nix shell nixpkgs#dendrite -c \
+    generate-keys --private-key matrix_key.pem
+#+END_SRC
+
+*** Age keys
+
+Private
+
+#+BEGIN_SRC shell
+nix shell nixpkgs#age -c \
+    age-keygen -o
+
+mkdir -p ~/.config/sops/age/
+ln age_private_key ~/.config/sops/age/keys.txt
+#+END_SRC
+
+Public
+
+#+BEGIN_SRC shell
+nix shell nixpkgs#age -c \
+    age-keygen -y ~/.config/sops/age/age_private_key > age_public_key
+#+END_SRC
+
+** SOPS: Store secrets securely
+
+Store these files in the root of the repository and add them both to
+version control.
+
+*Make sure to replace each ~{{placeholder}}~ with the content of the
+file it references!*
+
+*** Create .sops.yaml
+
+This file configures SOPS.
+
+#+BEGIN_SRC yaml
+keys:
+  - &primary {{age_public_key}}
+creation_rules:
+  - path_regex: secrets.yaml$
+    key_groups:
+    - age:
+      - *primary
+#+END_SRC
+
+*** Create secrets.yaml
+
+This file contains the secrets.
+
+*In order to edit it, you need to use the following command:*
+
+#+BEGIN_SRC shell
+nix shell nixpkgs#sops -c \
+    sops -a "$(cat age_public_key)" secrets.yaml
+#+END_SRC
+
+Then the file content:
+
+#+BEGIN_SRC yaml
+dendrite_env: |
+  CONNECTION_STRING="postgresql://dendrite:{{postgres_passwd}}@0.0.0.0/dendrite?sslmode=disable"
+  REGISTRATION_SHARED_SECRET="{{registration_shared_secret}}"
+matrix_key: |
+  {{matrix_key.pem}}
+#+END_SRC
+
+*** Place AGE private key
+
+Use SCP to copy ~age_private_key~ to ~/home/user/.config/sops/age/keys.txt~.
+
+*Do not use any VPS provider's tools or shell to copy it!*
+
+** PostgreSQL: Create user & database
+
+Create the user and provide the password you generated.
+
+#+BEGIN_SRC shell
+sudo -u postgres createuser -P dendrite
+#+END_SRC
+
+Create the database:
+
+#+BEGIN_SRC shell
+sudo -u postgres createdb -O dendrite -E UTF-8 dendrite
+#+END_SRC
+
