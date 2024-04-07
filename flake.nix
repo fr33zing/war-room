@@ -28,6 +28,7 @@
           { nixpkgs.overlays = [ myLib.overlay ]; }
 
           ./configuration.nix
+          ./modules/ssh.nix
           ./modules/sops.nix
           ./modules/shell.nix
           ./modules/dendrite.nix
